@@ -1,0 +1,21 @@
+[package]
+name = "chess_bevy"
+version = "0.1.0"
+edition = "2021"
+authors = ["William Simonak"]
+
+[dependencies]
+bevy = { version = "0.15.1", features = ["dynamic_linking"] }
+log = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
+
+# Enable a small amount of optimization in the dev profile.
+[profile.dev]
+opt-level = 1
+
+# Enable max optimizations for dependencies, but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
+
+# for Windows
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld.exe"
