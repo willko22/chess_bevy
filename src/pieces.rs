@@ -4,7 +4,7 @@ use crate::config::{TILE_SIZE, PIECE_SCALE};
 use crate::board::*;
 
 
-
+#[derive(Debug)]
 pub enum PieceType {
     Pawn,
     Rook,
@@ -15,12 +15,13 @@ pub enum PieceType {
     Empty,
 }
 
+#[derive(Debug)]
 pub enum PieceColor {
     White,
     Black,
 }
 
-#[derive(Component)]
+#[derive(Component, Debug)]
 pub struct Piece {
     pub piece_type: PieceType,
     pub piece_color: PieceColor,
@@ -80,7 +81,7 @@ pub fn create_pieces(
                 } 
             )).set_parent(board_entity)
             .id();
-            chess_board.board[1][i as usize] = Some(pawn);
+            chess_board.pieces[1][i as usize] = Some(pawn);
         }
         }
            
@@ -103,7 +104,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][0] = Some(rook1);
+        chess_board.pieces[0][0] = Some(rook1);
 
         let rook2 = commands.spawn((
             Sprite {
@@ -122,7 +123,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][7] = Some(rook2);
+        chess_board.pieces[0][7] = Some(rook2);
         }
 
         // Knights
@@ -144,7 +145,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][1] = Some(knight1);
+        chess_board.pieces[0][1] = Some(knight1);
 
         let knight2 = commands.spawn((
             Sprite {
@@ -163,7 +164,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][6] = Some(knight2);
+        chess_board.pieces[0][6] = Some(knight2);
         }
 
         // Bishops
@@ -185,7 +186,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][2] = Some(bishop1);
+        chess_board.pieces[0][2] = Some(bishop1);
 
         let bishop2 = commands.spawn((
             Sprite {
@@ -204,7 +205,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][5] = Some(bishop2);
+        chess_board.pieces[0][5] = Some(bishop2);
 
         }
         
@@ -227,7 +228,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][3] = Some(queen);
+        chess_board.pieces[0][3] = Some(queen);
         }
         
         // King
@@ -249,7 +250,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[0][4] = Some(king);
+        chess_board.pieces[0][4] = Some(king);
         }
         
         
@@ -274,7 +275,7 @@ pub fn create_pieces(
                 } 
             )).set_parent(board_entity)
             .id();
-            chess_board.board[6][i as usize] = Some(pawn);
+            chess_board.pieces[6][i as usize] = Some(pawn);
         }
         }      
 
@@ -297,7 +298,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][0] = Some(rook1);
+        chess_board.pieces[7][0] = Some(rook1);
 
         let rook2 = commands.spawn((
             Sprite {
@@ -316,7 +317,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][7] = Some(rook2);
+        chess_board.pieces[7][7] = Some(rook2);
         }
 
         // Knights
@@ -338,7 +339,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][1] = Some(knight1);
+        chess_board.pieces[7][1] = Some(knight1);
 
         let knight2 = commands.spawn((
             Sprite {
@@ -357,7 +358,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][6] = Some(knight2);
+        chess_board.pieces[7][6] = Some(knight2);
         }
 
         // Bishops
@@ -379,7 +380,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][2] = Some(bishop1);
+        chess_board.pieces[7][2] = Some(bishop1);
 
         let bishop2 = commands.spawn((
             Sprite {
@@ -398,7 +399,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][5] = Some(bishop2);
+        chess_board.pieces[7][5] = Some(bishop2);
 
         }
         
@@ -421,7 +422,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][3] = Some(queen);
+        chess_board.pieces[7][3] = Some(queen);
         }
         
         // King
@@ -443,7 +444,7 @@ pub fn create_pieces(
             } 
         )).set_parent(board_entity)
         .id();
-        chess_board.board[7][4] = Some(king);
+        chess_board.pieces[7][4] = Some(king);
         }
             
 
