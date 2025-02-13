@@ -63,10 +63,12 @@ pub fn keyboard_input(
 
 pub fn mouse_input(
     window: Query<&Window>,
+    mouse_button_input: Res<ButtonInput<MouseButton>>,
+    
     mut board_query: Query<(&mut ChessBoard, &Transform), (With<ChessBoard>, Without<Piece>)>,
     mut pieces_query: Query<&mut Transform, (With<Piece>, Without<ChessBoard>)>,
+
     mut game_state: ResMut<GameState>,
-    mouse_button_input: Res<ButtonInput<MouseButton>>,
 ) {
     if mouse_button_input.just_pressed(MouseButton::Left) {
         let window = window.single();
@@ -111,18 +113,14 @@ pub fn mouse_input(
                 game_state.selected_piece = None;
 
             }
-            game_state.selected_piece = None;
-
             
-        } else {
-            if let Some(piece_entity) = board_component.pieces[tile_y][tile_x] {
-                game_state.selected_piece = Some((piece_entity, (tile_y, tile_x)));
-            } else {
-                game_state.selected_piece = None;
-            }    
-
         }
         // Select new piece if one exists at clicked position
+        if let Some(piece_entity) = board_component.pieces[tile_y][tile_x] {
+            game_state.selected_piece = Some((piece_entity, (tile_y, tile_x)));
+        } else {
+            game_state.selected_piece = None;
+        }
         
 
         // println!("Mouse position on board: row = {:?}, col = {:?}", tile_y, tile_x);
