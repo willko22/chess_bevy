@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+pub const TARGET_FPS: u8 = 60;
+
 pub const WINDOW_TITLE: &str = "Bevy Chess";
 
 pub const WINDOW_HEIGHT: f32 = 600.0;

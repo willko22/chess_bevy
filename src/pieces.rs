@@ -4,7 +4,7 @@ use crate::config::{TILE_SIZE, PIECE_SCALE};
 use crate::board::*;
 
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum PieceType {
     Pawn,
     Rook,
@@ -15,7 +15,7 @@ pub enum PieceType {
     Empty,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum PieceColor {
     White,
     Black,
@@ -25,7 +25,21 @@ pub enum PieceColor {
 pub struct Piece {
     pub piece_type: PieceType,
     pub piece_color: PieceColor,
-    pub position: (u8, u8),
+    pub position: (usize, usize),
+    pub has_moved: bool,
+    pub is_captured: bool,
+}
+
+impl Default for Piece {
+    fn default() -> Self {
+        Self {
+            piece_type: PieceType::Empty,
+            piece_color: PieceColor::White, // Choose a default color
+            position: (0, 0),
+            has_moved: false,
+            is_captured: false,
+        }
+    }
 }
 
 
@@ -78,6 +92,7 @@ pub fn create_pieces(
                     piece_type: PieceType::Pawn,
                     piece_color: PieceColor::White,
                     position: (2, i+1),
+                    ..default()
                 } 
             )).set_parent(board_entity)
             .id();
@@ -101,6 +116,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Rook,
                 piece_color: PieceColor::White,
                 position: (1, 1),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -120,6 +137,7 @@ pub fn create_pieces(
                 piece_type: PieceType::Rook,
                 piece_color: PieceColor::White,
                 position: (1, 8),
+                ..default()
             } 
         )).set_parent(board_entity)
         .id();
@@ -142,6 +160,7 @@ pub fn create_pieces(
                 piece_type: PieceType::Knight,
                 piece_color: PieceColor::White,
                 position: (1, 2),
+                ..default()
             } 
         )).set_parent(board_entity)
         .id();
@@ -161,6 +180,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Knight,
                 piece_color: PieceColor::White,
                 position: (1, 7),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -183,6 +204,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Bishop,
                 piece_color: PieceColor::White,
                 position: (1, 3),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -202,6 +225,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Bishop,
                 piece_color: PieceColor::White,
                 position: (1, 6),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -225,6 +250,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Queen,
                 piece_color: PieceColor::White,
                 position: (1, 4),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -247,6 +274,8 @@ pub fn create_pieces(
                 piece_type: PieceType::King,
                 piece_color: PieceColor::White,
                 position: (1, 5),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -272,6 +301,8 @@ pub fn create_pieces(
                     piece_type: PieceType::Pawn,
                     piece_color: PieceColor::Black,
                     position: (7, i+1),
+                    ..default()
+
                 } 
             )).set_parent(board_entity)
             .id();
@@ -295,6 +326,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Rook,
                 piece_color: PieceColor::Black,
                 position: (7, 1),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -314,6 +347,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Rook,
                 piece_color: PieceColor::Black,
                 position: (7, 8),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -336,6 +371,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Knight,
                 piece_color: PieceColor::Black,
                 position: (7, 2),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -355,6 +392,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Knight,
                 piece_color: PieceColor::Black,
                 position: (7, 7),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -377,6 +416,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Bishop,
                 piece_color: PieceColor::Black,
                 position: (7, 3),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -396,6 +437,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Bishop,
                 piece_color: PieceColor::Black,
                 position: (7, 6),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -419,6 +462,8 @@ pub fn create_pieces(
                 piece_type: PieceType::Queen,
                 piece_color: PieceColor::Black,
                 position: (7, 4),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();
@@ -441,6 +486,8 @@ pub fn create_pieces(
                 piece_type: PieceType::King,
                 piece_color: PieceColor::White,
                 position: (7, 5),
+                ..default()
+
             } 
         )).set_parent(board_entity)
         .id();

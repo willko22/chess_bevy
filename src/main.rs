@@ -35,6 +35,20 @@ fn main() {
 
             )
         )
+        .insert_resource(bevy::winit::WinitSettings {
+            focused_mode: bevy::winit::UpdateMode::Reactive {
+                wait: std::time::Duration::from_secs_f64(1.0 / TARGET_FPS as f64),
+                react_to_device_events: true,
+                react_to_user_events: true,
+                react_to_window_events: true,
+            },
+            unfocused_mode: bevy::winit::UpdateMode::Reactive {
+                wait: std::time::Duration::from_secs_f64(1.0 / TARGET_FPS as f64 / 10.0),
+                react_to_device_events: true,
+                react_to_user_events: true,
+                react_to_window_events: true,
+            },
+        })
        
         
         .run();
